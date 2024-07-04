@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Especial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('noche-estrellada.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 50px;
+            color: white;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            top: 50%;
+            left: 50%;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2em;
+        }
+        p {
+            color: #ccc;
+            font-size: 1.2em;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .terms {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .terms ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .terms ul li {
+            margin: 10px 0;
+            text-align: left;
+        }
+        .terms input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .terms label {
+            cursor: pointer;
+        }
+        .secret {
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #popup, #popup-secret {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, rgba(5, 28, 103, 1), rgba(45, 19, 90, 1));
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 80%;
+            max-width: 600px;
+            color: white;
+            text-align: left;
+            overflow: hidden;
+        }
+        #popup .close, #popup-secret .close {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            float: right;
+            border-radius: 4px;
+        }
+        #popup .close:hover, #popup-secret .close:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla Inicial -->
+    <div id="inicio" class="container">
+        <h1>Tengo una sorpresa para ti</h1>
+        <button id="descubrir">Descubrir</button>
+    </div>
+
+    <!-- Pantalla de Sorpresa -->
+    <div id="sorpresa" class="container" style="display: none;">
+        <p>Esta noche quiero hacerte una propuesta</p>
+        <h1>¿Te escaparías conmigo?</h1>
+        <p>Quiero escaparme contigo, quiero conocer lugares nuevos, probar cosas diferentes, perderme contigo...</p>
+        <div class="terms">
+            <input type="checkbox" id="accept-terms">
+            <label for="accept-terms">He leído y acepto los <a href="#" id="terms-link">términos y condiciones</a>.</label>
+        </div>
+        <button id="accept-button" disabled>Acepto</button>
+    </div>
+
+    <!-- Pantalla Final -->
+    <div id="final" class="container" style="display: none;">
+        <h1>¡Genial!</h1>
+        <p>Prepárate para una noche increíble y que nunca termine</p>
+        <p>Te recojo al final de nuestra jornada laboral</p>
+        <p class="secret" id="secret-link">Secreto</p>
+    </div>
+
+    <!-- Popup de Términos y Condiciones -->
+    <div id="popup">
+        <button class="close" id="close-popup">Cerrar</button>
+        <h2>Términos y Condiciones</h2>
+        <ul>
+            <li><strong>Música:</strong> Serás la DJ encargada durante el viaje, se espera explorar todos los géneros, cantar a todo pulmón y desempolvar clásicos.</li><br>
+            <li><strong>Mapa:</strong> Aunque no soy la mejor con las direcciones, no conocerás el lugar hasta que lleguemos, ¡Será muy secreto!, y si me voy a perder, quiero perderme contigo.</li><br>
+            <li><strong>Destino:</strong> Nos reservamos el derecho de modificar el itinerario si la pasión lo amerita o si un lugar mágico inesperado nos llama.</li><br>
+            <li><strong>Antojos:</strong> Si un antojo irresistible surge en el camino, haré todo lo posible para satisfacerlo. ¡Incluso si implica escalar una montaña o cruzar un río!</li><br>
+            <li><strong>Espontaneidad:</strong> ¡Prepárate para lo inesperado! La escapada estará llena de sorpresas, giros inesperados y momentos que jamás olvidaremos.</li><br>
+            <li><strong>Juegos:</strong> Se alienta la creatividad, la sensualidad y la exploración de nuestros deseos más íntimos. Si buscas un poco de adrenalina extra, podemos incorporar juegos picantes y retos que aumenten el deseo.</li><br>
+        </ul>
+    </div>
+
+    <!-- Popup de Secreto -->
+    <div id="popup-secret">
+        <button class="close" id="close-popup-secret">Cerrar</button>
+        <h2>Secreto</h2>
+        <p>Me encantas muchisimooooo</p>
+    </div>
+
+    <!-- Música de fondo -->
+    <audio id="musica" loop>
+        <source src="perderme_contigo.mp3" type="audio/mpeg">
+        Tu navegador no soporta la etiqueta de audio.
+    </audio>
+
+    <script>
+        document.getElementById('descubrir').addEventListener('click', function() {
+            document.getElementById('inicio').style.display = 'none';
+            document.getElementById('sorpresa').style.display = 'block';
+            document.getElementById('musica').play();
+        });
+
+        document.getElementById('terms-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('popup').style.display = 'block';
+        });
+
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        document.getElementById('accept-terms').addEventListener('change', function() {
+            const button = document.getElementById('accept-button');
+            if (this.checked) {
+                button.disabled = false;
+                button.classList.add('enabled');
+            } else {
+                button.disabled = true;
+                button.classList.remove('enabled');
+            }
+        });
+
+        document.getElementById('accept-button').addEventListener('click', function() {
+            console.log("El usuario ha aceptado los términos y condiciones.");
+            document.getElementById('sorpresa').style.display = 'none';
+            document.getElementById('final').style.display = 'block';
+        });
+
+        document.getElementById('secret-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('popup-secret').style.display = 'block';
+        });
+
+        document.getElementById('close-popup-secret').addEventListener('click', function() {
+            document.getElementById('popup-secret').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
